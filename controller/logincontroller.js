@@ -40,4 +40,27 @@ module.exports = {
             res.status(200).send({ status: "login successfull" })
         })
     },
+    changepassword: (req, res) => {
+        var connection = mysql.db
+        req.body.password = crypto.createHmac('sha256', secret)
+            .update(req.body.password)
+            .digest('hex'); 1
+        let sql = `update login set password='${req.body.password}' where username='${req.body.username}'`
+        connection.query(sql, req.body, (err, results) => {
+            if (err) {
+                res.status(500).send(err)
+            }
+            res.status(200).send({ status: "password changed" })
+        });
+    },
+    delete: (req, res) => {
+        var connection = mysql.db
+        let sql = `delete from login where username='${req.body.username}'`
+        connection.query(sql, req.body, (err, results) => {
+            if (err) {
+                res.status(500).send(err)
+            }
+            res.status(200).send({ status: "delete successfull" })
+        });
+    },
 }
