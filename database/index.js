@@ -1,7 +1,3 @@
 let db = require("./mysql")
 
-module.exports = {
-    mysql: {
-        db
-    }
-}
+module.exports = { mysql: { db } }
